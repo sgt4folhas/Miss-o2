@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenação de Valores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .btn-custom {
+            background-color: #28a745;
+            border: none;
+            color: white;
+        }
+
+        .btn-custom:hover {
+            background-color: #218838;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul li {
+            font-size: 1.2rem;
+        }
+    </style>
+    <script src="ordenando.js" defer></script>
+    <script>
+        function add() {
+            let valorInput = document.getElementById('valor');
+            let valor = parseInt(valorInput.value);
+
+            if (!isNaN(valor)) {
+                let lista = document.getElementById('valores');
+                let node = document.createElement('li');
+                node.classList.add('list-group-item');
+                let textnode = document.createTextNode(valor);
+                node.appendChild(textnode);
+                lista.appendChild(node);
+                valorInput.value = '';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Ordenação de Valores</h1>
+
+        <!-- Campo de entrada para valores numéricos -->
+        <div class="mb-3">
+            <label for="valor" class="form-label">Digite um número</label>
+            <input type="number" class="form-control" id="valor" placeholder="Digite um número">
+        </div>
+
+        <!-- Botão adicionar -->
+        <div class="mb-3">
+            <button class="btn btn-custom w-100" onclick="add()">Adicionar</button>
+        </div>
+
+        <!-- Campo de seleção de algoritmos -->
+        <div class="mb-3">
+            <select id="algoritmo" class="form-select">
+                <option value="bubble_sort">Bubble Sort</option>
+                <option value="selection_sort">Selection Sort</option>
+                <option value="quick_sort">Quick Sort</option>
+            </select>
+        </div>
+
+        <!-- Botões de ordenar e misturar -->
+        <div class="btn-container mb-3">
+            <button class="btn btn-custom w-50" onclick="ordenar()">Ordenar</button>
+            <button class="btn btn-custom w-50" onclick="misturar()">Misturar</button>
+        </div>
+
+        <!-- Lista de valores -->
+        <ul id="valores" class="list-group"></ul>
+    </div>
+</body>
+</html>

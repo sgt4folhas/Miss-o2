@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Receitas</title>
+    <!-- Inclusão do Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilo adicional para organizar o catálogo */
+        #pnlCatalogo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            width: 300px;
+            background-color: #fff;
+            border: 3px solid #ffc107; /* Cor bg-warning ao redor */
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card-body {
+            background-color: white;
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid #ffc107;
+        }
+
+        body {
+            background-color: #ffc107; /* bg-warning */
+        }
+    </style>
+</head>
+<body onload="preencheCatalogo()">
+    <!-- Área principal -->
+    <div class="container-fluid py-5">
+        <h1 class="text-center mb-4">Catálogo de Receitas</h1>
+
+        <!-- Div para exibição dos painéis de receitas -->
+        <div id="pnlCatalogo"></div>
+    </div>
+
+    <!-- JavaScript para dinamizar o catálogo -->
+    <script>
+        // Dados JSON com as receitas
+        const receitas = [
+            {
+                titulo: "Lasanha",
+                imagem: "Lasanha.jpg",
+                preparo: "Aqueça o azeite e refogue a cebola e o alho.Acrescente a carne moída, 1 xícara de água e deixe até cozinhar.Coloque o extrato de tomate,orégano e aproximadamente 1 e 1/2 litros de água.Deixe uns 10 minutos e desligue, acrescente salsinha e cebolinha.O molho deve ficar bem líquido.Forre o fundo de um refratário com um pouco do molho.Alterne camadas de massa de lasanha, molho, fatias de presunto, fatias de mussarela.A última camada deverá ser de mussarela.Polvilhe queijo ralado.Leve ao forno e deixe até derreter a mussarela.",
+                ingredientes: ["Carne moída", "Alho", "Cebola", "Azeite", "Presunto", "Queijo", "Tomate","Lasanha"]
+            },
+            {
+                titulo: "Bobó de camarão",
+                imagem: "Bobo.jpg",
+                preparo: "Lave os camarões e tempere com sal, alho, pimenta e limão, deixe marinar.Pegue uma panela com água e cozinhe a mandioca em pedacinhos, com louro e a cebola em rodelas.Quando estiver mole, acrescente um vidro de leite de coco.Deixe esfriar um pouco e bata no liquidificador.Esquente o azeite de oliva, junte a cebola ralada e deixe dourar.Acrescente os camarões e frite.Adicione as 2 latas de pomarola, o cheiro-verde, o pimentão e deixe cozinhar por alguns minutos.Junte na mesma panela, a mandioca batida no liquidificador, outro vidro de leite de coco e o azeite de dendê.Deixe levantar fervura e está pronto.",
+                ingredientes: ["Camarão", "Alho", "Cebola", "Limão", "Pimentão verde", "Leite de coco", "Molho de tomate", "Mandioca", "Pimenta do reino"]
+            },
+            {
+                titulo: "Sopa de legumes com macarrão",
+                imagem: "Sopa.jpg",
+                preparo: "Coloque um fio de óleo na panela de pressão.Acrescente a cebola e deixe dourar.Acrescente a carne bovina e deixe dourar.Acrescente o tomate picado.Coloque o caldo de carne e o envelope de tempero tipo sazon.Junte as batatas, as cenouras, as mandioquinhas e as vagens e deixe refogar por 3 minutinhos (sempre mexendo para não grudar no fundo da panela).Adicione a salsinha e a cebolinha, a pimenta, o sal e, por último, a água.Obs: A água deve ser adicionada até que ultrapasse um pouco mais da metade da panela de pressão.Tampe a panela de pressão e deixe cozinhar por 40 minutos.Após os 40 minutos, destampe a panela e acrescente o macarrão.Assim que o macarrão estiver cozido, desligue a panela e pode servir.Dica: Não deixe o macarrão muito mole.",
+                ingredientes: ["Cebola", "Vagem picada", "Tomate picado", "Cenoura cortada", "Carne", "Batata cortada", "Salsinha e Cebolinha", "Água", "Macarrão"]
+            }
+        ];
+
+        // Função para gerar a lista de ingredientes em HTML
+        function getListaIngredientes(receita) {
+            let lista = "<ul>";
+            lista += receita.ingredientes.map(ing => `<li>${ing}</li>`).join("");
+            lista += "</ul>";
+            return lista;
+        }
+
+        // Função para gerar um card de receita
+        function getCard(receita) {
+            return `
+                <div class="card">
+                    <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">
+                            ${getListaIngredientes(receita)}
+                            <hr>
+                            <p>${receita.preparo}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Função para preencher o catálogo com receitas
+        function preencheCatalogo() {
+            const pnlCatalogo = document.getElementById("pnlCatalogo");
+            pnlCatalogo.innerHTML = receitas.map(receita => getCard(receita)).join("");
+        }
+    </script>
+</body>
+</html>
